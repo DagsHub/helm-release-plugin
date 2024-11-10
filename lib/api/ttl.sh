@@ -60,12 +60,12 @@ function create_ttl() {
                 spec:
                   initContainers:
                     - name: release-ttl-terminator
-                      image: alpine/helm
+                      image: '${HELM_IMAGE:-alpine/helm}'
                       imagePullPolicy: IfNotPresent
                       args: [ 'uninstall', '$RELEASE' ]
                   containers:
                     - name: release-ttl-cleaner
-                      image: bitnami/kubectl
+                      image: '${KUBECTL_IMAGE:-bitnami/kubectl}'
                       imagePullPolicy: IfNotPresent
                       args: [ 'delete', 'cronjob', '$cronjob_name' ]
                   restartPolicy: OnFailure"
